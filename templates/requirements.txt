@@ -1,0 +1,5 @@
+flask
+flask-sqlalchemy       # if using database
+flask-login            # if using user authentication
+flask-wtf              # if using forms
+python-dotenv
