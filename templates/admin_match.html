@@ -188,6 +188,31 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .btn-green:hover{background:rgba(0,255,136,.2);}
 .btn-yellow{background:rgba(255,215,0,.1);border-color:var(--yellow);color:var(--yellow);}
 .btn-yellow:hover{background:rgba(255,215,0,.2);}
+/* ── COMMENTARY ───────────────────────────── */
+.commentary-panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;margin-top:12px;overflow:hidden;}
+.comm-header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--border);font-size:11px;font-family:var(--mono);color:var(--accent);text-transform:uppercase;letter-spacing:1px;}
+.comm-inn-tabs{display:flex;gap:6px;}
+.comm-inn-tab{padding:3px 10px;border-radius:6px;font-size:10px;cursor:pointer;border:1px solid var(--border);color:var(--muted);transition:.2s;}
+.comm-inn-tab.active{background:rgba(0,212,255,.12);border-color:var(--accent);color:var(--accent);}
+.comm-body{max-height:340px;overflow-y:auto;padding:4px 0;}
+.comm-empty{padding:24px;text-align:center;color:var(--muted);font-size:12px;font-family:var(--mono);}
+.comm-ball{display:flex;align-items:flex-start;gap:10px;padding:8px 14px;border-bottom:1px solid rgba(255,255,255,.04);animation:commIn .3s ease;}
+@keyframes commIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.comm-ball:first-child{background:rgba(0,212,255,.04);}
+.comm-over-lbl{font-family:var(--mono);font-size:10px;color:var(--muted);min-width:36px;padding-top:3px;}
+.comm-badge{min-width:28px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;font-family:var(--mono);flex-shrink:0;}
+.cb-dot{background:rgba(255,255,255,.07);color:var(--muted);}
+.cb-1,.cb-2,.cb-3{background:rgba(255,255,255,.1);color:#eee;}
+.cb-4{background:rgba(30,120,255,.3);color:#7af;}
+.cb-6{background:rgba(140,0,255,.35);color:#d8b4ff;}
+.cb-W{background:rgba(255,50,50,.25);color:var(--red);}
+.cb-WD,.cb-NB{background:rgba(255,200,0,.15);color:var(--yellow);}
+.comm-text{font-size:12px;color:var(--text);line-height:1.55;flex:1;}
+.comm-text b{color:var(--accent2);}
+.comm-milestone{padding:9px 14px;text-align:center;font-size:12px;font-weight:700;letter-spacing:1.5px;border-bottom:1px solid rgba(255,255,255,.06);animation:commIn .3s ease;}
+.cm-fifty{background:rgba(255,200,0,.08);color:var(--yellow);}
+.cm-century{background:linear-gradient(90deg,rgba(255,160,0,.1),rgba(255,215,0,.15),rgba(255,160,0,.1));color:#ffd700;}
+.comm-ai-loading{padding:8px 14px;font-size:11px;color:var(--muted);font-family:var(--mono);font-style:italic;}
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 20px;font-size:13px;font-family:var(--mono);z-index:200;transition:transform .3s ease;white-space:nowrap;}
 .toast.show{transform:translateX(-50%) translateY(0);}
 .toast.success{border-color:var(--green);color:var(--green);}
@@ -286,11 +311,21 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
       &#127937; End Innings &amp; Start 2nd Innings
     </div>
 
-    <div class="history-panel">
-      <div class="history-header" onclick="toggleHistory()">
-        <h3>Ball-by-Ball History</h3>
-        <div class="tog" id="histToggle">&#9662;</div>
+    <!-- COMMENTARY FEED -->
+    <div class="commentary-panel">
+      <div class="comm-header">
+        <span>&#127908; LIVE COMMENTARY</span>
+        <div class="comm-inn-tabs">
+          <div class="comm-inn-tab active" id="commTab1" onclick="switchCommTab(1)">1st Inn</div>
+          <div class="comm-inn-tab" id="commTab2" onclick="switchCommTab(2)">2nd Inn</div>
+        </div>
       </div>
+      <div class="comm-body" id="commBody">
+        <div class="comm-empty">Commentary will appear here as balls are bowled</div>
+      </div>
+    </div>
+
+    <div class="history-panel" style="display:none">
       <div class="history-body" id="historyBody">
         <div id="historyList"></div>
       </div>
@@ -394,6 +429,19 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
   </div>
 </div>
 
+<!-- MATCH RESULT MODAL -->
+<div class="modal-overlay" id="resultModal">
+  <div class="modal" style="text-align:center">
+    <div class="modal-icon" style="font-size:40px">🏆</div>
+    <h3 style="color:var(--yellow);font-size:20px;letter-spacing:1px">MATCH RESULT</h3>
+    <div style="margin:16px 0;font-size:18px;font-weight:700;color:var(--green);line-height:1.4" id="resultMsg"></div>
+    <div style="font-size:12px;color:var(--muted);font-family:var(--mono);margin-bottom:20px" id="resultSummary"></div>
+    <div class="modal-actions" style="justify-content:center">
+      <div class="modal-btn btn-green" onclick="closeModal('resultModal')">Close</div>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -405,6 +453,9 @@ const supabaseClient = supabase.createClient(
 
 // ── STATE ──────────────────────────────────────────────────────────────────
 let matchData=null, currentInnings=1, viewingInnings=1;
+// commentary store: {innings: [{over, ball, badge, text, milestone}]}
+const commStore={1:[],2:[]};
+let commTabView=1;
 const inn={
   1:{runs:0,wickets:0,over:0,ballCount:0,batsmen:[],bowlers:[],outBatsmen:new Set(),dismissals:{},history:[],pStats:{},bStats:{},wides:0,noBalls:0},
   2:{runs:0,wickets:0,over:0,ballCount:0,batsmen:[],bowlers:[],outBatsmen:new Set(),dismissals:{},history:[],pStats:{},bStats:{},wides:0,noBalls:0}
@@ -685,19 +736,57 @@ function endInnings(){
 
 // ── AUTO INNINGS SWITCH ────────────────────────────────────────────────────
 function checkAutoInnings(){
-  if(currentInnings!==1)return false;
   const s=I();
   const overs_limit=matchData?matchData.overs_limit:20;
   const oversComplete=(s.over>=overs_limit&&s.ballCount===0);
   const allOut=s.wickets>=10;
-  if(oversComplete||allOut){
-    const reason=allOut?'All Out! (10 wickets)':'Overs Complete! ('+overs_limit+' overs)';
-    document.getElementById('endInningsMsg').textContent=
-      reason+' Score: '+s.runs+'/'+s.wickets+'. 2nd Innings start avutundi.';
-    document.getElementById('endInningsModal').classList.add('open');
-    return true;
+
+  if(currentInnings===1){
+    if(oversComplete||allOut){
+      const reason=allOut?'All Out! (10 wickets)':'Overs Complete! ('+overs_limit+' overs)';
+      document.getElementById('endInningsMsg').textContent=
+        reason+' Score: '+s.runs+'/'+s.wickets+'. 2nd Innings start avutundi.';
+      document.getElementById('endInningsModal').classList.add('open');
+      return true;
+    }
+    return false;
+  }
+
+  // ── 2nd innings end → match result ─────────────────────────────────────
+  if(currentInnings===2){
+    const target=inn[1].runs+1;
+    const chasing=s.runs;
+    // Win by wickets — chasing team reaches target
+    if(chasing>=target){
+      const wicketsLeft=10-s.wickets;
+      declareResult(`${matchData?matchData.team_bowling:'Team 2'} won by ${wicketsLeft} wicket${wicketsLeft!==1?'s':''}! 🏆`,'win');
+      return true;
+    }
+    // Win by runs or tie — all out or overs complete
+    if(oversComplete||allOut){
+      const diff=inn[1].runs-s.runs;
+      if(diff===0){
+        declareResult('Match Tied! 🤝','tie');
+      } else {
+        declareResult(`${matchData?matchData.team_batting:'Team 1'} won by ${diff} run${diff!==1?'s':''}! 🏆`,'win');
+      }
+      return true;
+    }
   }
   return false;
+}
+
+async function declareResult(msg,type){
+  lockScoring('Match Complete');
+  const s1=inn[1],s2=inn[2];
+  const team1=matchData?matchData.team_batting:'Team 1';
+  const team2=matchData?matchData.team_bowling:'Team 2';
+  document.getElementById('resultMsg').textContent=msg;
+  document.getElementById('resultSummary').textContent=
+    `${team1}: ${s1.runs}/${s1.wickets} (${s1.over}.${s1.ballCount}) | ${team2}: ${s2.runs}/${s2.wickets} (${s2.over}.${s2.ballCount})`;
+  document.getElementById('resultModal').classList.add('open');
+  await supabaseClient.from('matches').update({status:'complete',innings:currentInnings}).eq('id',matchId);
+  showToast(msg,'success');
 }
 
 async function confirmEndInnings(){
@@ -793,6 +882,115 @@ function renderHistory(){
       <span class="ac dc ${isLast?'':'dis'}" ${isLast?`onclick="deleteBall('${b.id}')"`:''}>Del</span>
     </div>`;
   }).join('');
+}
+
+// ── COMMENTARY ENGINE ───────────────────────────────────────────────────────
+function switchCommTab(n){
+  commTabView=n;
+  document.getElementById('commTab1').classList.toggle('active',n===1);
+  document.getElementById('commTab2').classList.toggle('active',n===2);
+  renderCommentary();
+}
+
+function renderCommentary(){
+  const body=document.getElementById('commBody');
+  const items=commStore[commTabView];
+  if(!items||!items.length){body.innerHTML='<div class="comm-empty">Commentary will appear here as balls are bowled</div>';return;}
+  // newest first
+  body.innerHTML=[...items].reverse().map(item=>{
+    if(item.milestone){
+      return`<div class="comm-milestone ${item.milestone==='century'?'cm-century':'cm-fifty'}">${item.text}</div>`;
+    }
+    const badgeCls=item.badge==='W'?'cb-W':item.badge==='WD'?'cb-WD':item.badge==='NB'?'cb-NB':item.badge==='6'?'cb-6':item.badge==='4'?'cb-4':item.badge==='0'?'cb-dot':`cb-${item.badge}`;
+    const badgeLabel=item.badge==='W'?'W':item.badge==='WD'?'WD':item.badge==='NB'?'NB':item.badge;
+    return`<div class="comm-ball">
+      <span class="comm-over-lbl">${item.over}</span>
+      <span class="comm-badge ${badgeCls}">${badgeLabel}</span>
+      <span class="comm-text">${item.text}</span>
+    </div>`;
+  }).join('');
+}
+
+// milestone check — runs before and after ball
+function checkMilestone(playerName,runsBefore,runsAfter,innings){
+  const milestones=[];
+  if(runsBefore<50&&runsAfter>=50&&runsAfter<100)milestones.push({milestone:'fifty',text:`🏅 HALF CENTURY! ${playerName} brings up a well-deserved 50!`});
+  if(runsBefore<100&&runsAfter>=100)milestones.push({milestone:'century',text:`💯 CENTURY! ${playerName} raises the bat for a magnificent hundred!`});
+  milestones.forEach(m=>commStore[innings].push(m));
+  return milestones;
+}
+
+// AI commentary generator via Claude API
+async function generateCommentary({bowler,striker,runs,isWicket,extra,overLabel,dismissal,innings}){
+  const s=inn[innings];
+  const score=`${s.runs}/${s.wickets}`;
+  const overs=`${s.over}.${s.ballCount}`;
+  const prompt=`You are a cricket commentary generator for a live match scoring app, styled like CREX or ESPNCricinfo.
+
+Ball details:
+- Bowler: ${bowler}
+- Batsman: ${striker}
+- Result: ${isWicket?'WICKET ('+( dismissal||'out')+')':extra?extra+' (extra, 1 run)':runs+' run'+(runs!==1?'s':'')}
+- Score now: ${score} (${overs} overs)
+
+Write ONE line of punchy cricket commentary (15-25 words max). 
+- For 0: dot ball, tight bowling or defensive play
+- For 1-3: running between wickets, placement  
+- For 4: boundary, describe shot type and direction
+- For 6: SIX! over the rope, big hit description
+- For wicket: dramatic dismissal commentary
+- For wide/no-ball: bowling error
+Use cricket terms. Do NOT add over/score info — just the shot/event description. No quotes around it.`;
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:80,
+        messages:[{role:'user',content:prompt}]
+      })
+    });
+    const d=await resp.json();
+    return d.content?.[0]?.text?.trim()||fallbackCommentary({runs,isWicket,extra,bowler,striker});
+  }catch(e){
+    return fallbackCommentary({runs,isWicket,extra,bowler,striker});
+  }
+}
+
+function fallbackCommentary({runs,isWicket,extra,bowler,striker}){
+  if(isWicket)return`<b>${bowler}</b> gets the big wicket of <b>${striker}</b>!`;
+  if(extra==='WD')return`<b>${bowler}</b> — wide ball, no addition to the batting score.`;
+  if(extra==='NB')return`<b>${bowler}</b> — no ball called by the umpire.`;
+  const lines={
+    0:[`Dot ball. <b>${bowler}</b> beats <b>${striker}</b> outside off.`,`Good length from <b>${bowler}</b>, <b>${striker}</b> defends solidly.`,`Tight bowling from <b>${bowler}</b>, no run scored.`],
+    1:[`<b>${striker}</b> works it to mid-on for a single.`,`<b>${striker}</b> clips it fine, easy single taken.`,`Nudged to leg, <b>${striker}</b> and partner rotate the strike.`],
+    2:[`<b>${striker}</b> drives to long-off, they run hard for two.`,`<b>${striker}</b> steers it through the gap — two runs.`,`Good running between the wickets, two added.`],
+    3:[`<b>${striker}</b> plays to the deep, three quick runs.`,`Excellent running — <b>${striker}</b> pushes for three.`],
+    4:[`FOUR! <b>${striker}</b> drives elegantly through the covers!`,`FOUR! <b>${striker}</b> flicks off the pads, races to the boundary!`,`FOUR! Crisp cut shot from <b>${striker}</b>, through point!`],
+    6:[`SIX! <b>${striker}</b> launches <b>${bowler}</b> over long-on!`,`SIX! Massive hit from <b>${striker}</b>, clears the ropes easily!`,`SIX! <b>${striker}</b> goes downtown, right out of the ground!`]
+  };
+  const opts=lines[runs]||lines[1];
+  return opts[Math.floor(Math.random()*opts.length)];
+}
+
+// Main function called after each ball
+async function pushCommentary({bowler,striker,runs,isWicket,extra,overNo,ballNo,dismissal,innings}){
+  const s=inn[innings];
+  const overLabel=`${overNo}.${ballNo}`;
+  const badge=isWicket?'W':extra?extra:String(runs);
+  // milestone check (runs before adding)
+  const runsBefore=(s.pStats[striker]||{runs:0}).runs - (isWicket?0:runs);
+  const runsAfter=(s.pStats[striker]||{runs:0}).runs;
+  checkMilestone(striker,runsBefore,runsAfter,innings);
+  // add placeholder while AI generates
+  const placeholder={over:overLabel,badge,text:'<span style="color:var(--muted);font-style:italic">generating commentary...</span>'};
+  commStore[innings].push(placeholder);
+  if(commTabView===innings)renderCommentary();
+  // get AI text
+  const text=await generateCommentary({bowler,striker,runs,isWicket,extra,overLabel,dismissal,innings});
+  placeholder.text=text;
+  if(commTabView===innings)renderCommentary();
 }
 
 // ── CREX SCORECARD ─────────────────────────────────────────────────────────
@@ -991,6 +1189,8 @@ async function addBall(r){
   document.getElementById('endInningsBtn').style.display=(currentInnings===1&&lc>0)?'':'none';
   showToast(r+' run'+(r!==1?'s':''),'success');
   if(overDone){if(checkAutoInnings())return;showNewBowlerModal();}
+  // commentary async — non-blocking
+  pushCommentary({bowler,striker,runs:r,isWicket:false,extra:null,overNo:recOver,ballNo:recBall,innings:currentInnings});
   // DB background
   const{data}=await supabaseClient.from('balls').insert(row).select().single();
   if(data){const idx=s.history.findIndex(b=>String(b.id).startsWith('tmp_'));if(idx>=0)s.history[idx].id=data.id;}
@@ -1018,6 +1218,7 @@ async function addWicket(){
   const allOut=I().wickets>=10&&currentInnings===1;
   if(overDone&&!allOut)pendingBowler=true;
   showWicketModal(striker);
+  pushCommentary({bowler,striker,runs:0,isWicket:true,extra:null,overNo:recOver,ballNo:recBall,innings:currentInnings});
   // ── DB background ──────────────────────────────────────────────────────
   const{data}=await supabaseClient.from('balls').insert(row).select().single();
   if(data){const idx=s.history.findIndex(b=>String(b.id).startsWith('tmp_'));if(idx>=0)s.history[idx].id=data.id;}
@@ -1037,6 +1238,7 @@ async function addExtra(type){
   recalcStats(currentInnings);
   updatePlayerStats();renderOverBalls();renderHistory();renderScorecard();
   showToast(type+' \u2014 +1 run','info');
+  pushCommentary({bowler,striker,runs:1,isWicket:false,extra:type,overNo:s.over,ballNo:s.ballCount,innings:currentInnings});
   // ── DB background ──────────────────────────────────────────────────────
   const{data}=await supabaseClient.from('balls').insert(row).select().single();
   if(data){const idx=s.history.findIndex(b=>String(b.id).startsWith('tmp_'));if(idx>=0)s.history[idx].id=data.id;}
