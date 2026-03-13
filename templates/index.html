@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Advanced Live Cricket Score</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>🏏 Live Cricket Scoreboard</h1>
+
+  <div class="scoreboard">
+    <h2 id="teams">IND vs AUS</h2>
+
+    <h3 id="score">0/0</h3>
+    <p id="overs">Overs: 0.0</p>
+    <p id="runrate">Run Rate: 0.00</p>
+
+    <hr>
+
+    <h4>Batsman</h4>
+    <p id="player">Virat Kohli - 0 (0)</p>
+  </div>
+
+  <div class="buttons">
+    <button onclick="addRun(1)">+1</button>
+    <button onclick="addRun(2)">+2</button>
+    <button onclick="addRun(4)">+4</button>
+    <button onclick="addRun(6)">+6</button>
+    <button onclick="addWicket()">Wicket</button>
+    <button onclick="addBall()">Ball</button>
+    <button onclick="toggleTheme()">🌙 Theme</button>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
