@@ -11,7 +11,9 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:var(--bg);color:var(--text);font-family:var(--font);display:flex;min-height:100vh;}
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 80% 10%,rgba(0,212,255,.04) 0%,transparent 50%),radial-gradient(ellipse at 20% 90%,rgba(255,107,53,.03) 0%,transparent 50%);pointer-events:none;z-index:0;}
-.sidebar{width:220px;background:var(--sidebar);border-right:1px solid var(--border);padding:24px 16px;display:flex;flex-direction:column;gap:6px;position:fixed;top:0;left:0;bottom:0;}
+
+/* SIDEBAR */
+.sidebar{width:220px;background:var(--sidebar);border-right:1px solid var(--border);padding:24px 16px;display:flex;flex-direction:column;gap:6px;position:fixed;top:0;left:0;bottom:0;z-index:10;}
 .sidebar-logo{display:flex;align-items:center;gap:10px;margin-bottom:28px;padding-bottom:18px;border-bottom:1px solid var(--border);}
 .logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;}
 .logo-text{font-size:20px;font-weight:700;color:var(--green);letter-spacing:2px;}
@@ -22,6 +24,8 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .nav-badge{margin-left:auto;background:var(--red);color:white;font-size:10px;font-family:var(--mono);padding:1px 6px;border-radius:10px;font-weight:700;}
 .nav-badge.green{background:var(--green);color:#000;}
 .sidebar-footer{margin-top:auto;padding-top:16px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);font-family:var(--mono);text-align:center;}
+
+/* MAIN */
 .main{margin-left:220px;flex:1;padding:28px;position:relative;z-index:1;}
 .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border);}
 .topbar h1{font-size:24px;font-weight:700;letter-spacing:1px;}
@@ -29,6 +33,12 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .live-indicator{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--green);font-family:var(--mono);font-weight:700;}
 .live-indicator::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 1.4s ease-in-out infinite;}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+
+/* TABS (pages) */
+.page{display:none;}
+.page.active{display:block;}
+
+/* STATS */
 .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px;}
 .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 20px;position:relative;overflow:hidden;}
 .stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
@@ -40,6 +50,8 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .stat-card:nth-child(1) .stat-value{color:var(--green);}
 .stat-card:nth-child(2) .stat-value{color:var(--accent);}
 .stat-card:nth-child(3) .stat-value{color:var(--yellow);}
+
+/* CREATE BOX */
 .create-box{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:24px;position:relative;overflow:hidden;}
 .create-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));}
 .create-box h3{font-size:14px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:2px;font-family:var(--mono);margin-bottom:18px;}
@@ -53,19 +65,8 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .form-select:focus{border-color:var(--accent);}
 .form-select option{background:var(--surface);}
 .toss-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
-/* SQUAD PREVIEW */
-.squad-preview{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
-.squad-box{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;}
-.squad-box-title{font-size:11px;font-family:var(--mono);font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
-.squad-box-title.batting{color:var(--green);}
-.squad-box-title.bowling{color:var(--accent2);}
-.squad-tags{display:flex;flex-wrap:wrap;gap:4px;}
-.squad-tag{font-size:11px;font-family:var(--mono);background:rgba(30,58,95,.5);border:1px solid var(--border);border-radius:4px;padding:2px 7px;color:var(--text);}
-.squad-tag.wk{border-color:var(--yellow);color:var(--yellow);}
-.squad-tag.c{border-color:var(--accent);color:var(--accent);}
-.squad-empty{font-size:11px;font-family:var(--mono);color:var(--muted);}
-.create-btn{padding:11px 28px;background:rgba(0,255,136,.1);border:1px solid var(--green);border-radius:8px;color:var(--green);font-family:var(--font);font-size:15px;font-weight:700;cursor:pointer;letter-spacing:1px;transition:all .15s;display:inline-block;}
-.create-btn:hover{background:rgba(0,255,136,.2);}
+
+/* MATCH CARDS */
 .list-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
 .list-header h3{font-size:14px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:2px;font-family:var(--mono);}
 .filter-tabs{display:flex;gap:6px;}
@@ -88,29 +89,108 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .card-score{text-align:right;}
 .score-big{font-size:26px;font-weight:700;font-family:var(--mono);}
 .score-overs{font-size:12px;color:var(--muted);font-family:var(--mono);}
-/* 2nd innings score in card */
 .score-inn2{font-size:13px;font-family:var(--mono);color:var(--accent2);margin-top:2px;}
 .card-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid var(--border);}
 .toss-info{font-size:12px;color:var(--muted);font-family:var(--mono);}
 .toss-info span{color:var(--accent);}
-.card-actions{display:flex;gap:8px;}
+.card-actions{display:flex;gap:8px;flex-wrap:wrap;}
 .action-btn{padding:6px 16px;border-radius:6px;font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;border:1px solid;transition:all .15s;letter-spacing:.5px;}
+.btn-toss{background:rgba(255,215,0,.08);border-color:var(--yellow);color:var(--yellow);}
+.btn-toss:hover{background:rgba(255,215,0,.2);}
+.btn-squad{background:rgba(0,212,255,.08);border-color:var(--accent);color:var(--accent);}
+.btn-squad:hover{background:rgba(0,212,255,.2);}
 .btn-score{background:rgba(0,255,136,.08);border-color:var(--green);color:var(--green);}
 .btn-score:hover{background:rgba(0,255,136,.2);}
 .btn-status{background:transparent;border-color:var(--border);color:var(--muted);}
 .btn-status:hover{border-color:var(--accent2);color:var(--accent2);}
 .btn-delete{background:transparent;border-color:var(--border);color:var(--muted);}
 .btn-delete:hover{border-color:var(--red);color:var(--red);}
+
+/* SQUAD INDICATOR on card */
+.squad-indicator{display:flex;gap:6px;margin-top:6px;}
+.squad-pill{font-size:10px;font-family:var(--mono);padding:2px 8px;border-radius:4px;}
+.squad-pill.done{background:rgba(0,255,136,.1);border:1px solid rgba(0,255,136,.3);color:var(--green);}
+.squad-pill.pending{background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.3);color:var(--yellow);}
+
+/* TEAMS PAGE */
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-bottom:24px;}
+.team-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;cursor:pointer;transition:all .2s;}
+.team-card:hover{border-color:var(--accent);background:rgba(0,212,255,.03);}
+.team-card.selected-team{border-color:var(--accent);background:rgba(0,212,255,.06);}
+.team-card-head{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.team-flag{font-size:28px;}
+.team-name{font-size:18px;font-weight:700;letter-spacing:.5px;}
+.team-code{font-size:11px;font-family:var(--mono);color:var(--muted);}
+.team-player-count{font-size:11px;font-family:var(--mono);color:var(--accent);}
+.player-list-mini{display:flex;flex-wrap:wrap;gap:4px;}
+.player-chip{font-size:11px;font-family:var(--mono);background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:2px 7px;color:var(--text);}
+.player-chip.wk{border-color:var(--yellow);color:var(--yellow);}
+.player-chip.cap{border-color:var(--accent);color:var(--accent);}
+
+/* ADD TEAM FORM */
+.add-form{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:24px;position:relative;overflow:hidden;}
+.add-form::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--yellow),var(--accent2));}
+.add-form h3{font-size:14px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:2px;font-family:var(--mono);margin-bottom:16px;}
+.inline-row{display:flex;gap:10px;margin-bottom:12px;align-items:flex-end;}
+.inline-row .form-group{flex:1;}
+.create-btn{padding:11px 28px;background:rgba(0,255,136,.1);border:1px solid var(--green);border-radius:8px;color:var(--green);font-family:var(--font);font-size:15px;font-weight:700;cursor:pointer;letter-spacing:1px;transition:all .15s;display:inline-block;}
+.create-btn:hover{background:rgba(0,255,136,.2);}
+.create-btn.yellow{background:rgba(255,215,0,.1);border-color:var(--yellow);color:var(--yellow);}
+.create-btn.yellow:hover{background:rgba(255,215,0,.2);}
+.create-btn.blue{background:rgba(0,212,255,.1);border-color:var(--accent);color:var(--accent);}
+.create-btn.blue:hover{background:rgba(0,212,255,.2);}
+
+/* ADD PLAYER form inside team detail */
+.player-mgmt{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:16px;margin-top:14px;}
+.player-mgmt-title{font-size:11px;font-family:var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px;}
+.player-table{width:100%;border-collapse:collapse;}
+.player-table th{font-size:10px;font-family:var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:1px;padding:6px 10px;text-align:left;border-bottom:1px solid var(--border);}
+.player-table td{padding:8px 10px;border-bottom:1px solid rgba(30,58,95,.4);font-size:13px;vertical-align:middle;}
+.player-table tr:last-child td{border-bottom:none;}
+.player-table tr:hover td{background:rgba(0,212,255,.03);}
+.role-badge{font-size:10px;font-family:var(--mono);padding:2px 7px;border-radius:4px;}
+.role-BAT{background:rgba(0,255,136,.1);border:1px solid rgba(0,255,136,.3);color:var(--green);}
+.role-BOWL{background:rgba(255,107,53,.1);border:1px solid rgba(255,107,53,.3);color:var(--accent2);}
+.role-AR{background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.3);color:var(--accent);}
+.role-WK{background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.3);color:var(--yellow);}
+.del-btn{background:transparent;border:1px solid var(--border);border-radius:4px;padding:3px 8px;color:var(--muted);cursor:pointer;font-size:11px;font-family:var(--mono);transition:all .15s;}
+.del-btn:hover{border-color:var(--red);color:var(--red);}
+
+/* EMPTY */
 .empty{text-align:center;padding:40px;color:var(--muted);font-family:var(--mono);font-size:13px;}
 .empty .icon{font-size:36px;margin-bottom:10px;opacity:.4;}
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 20px;font-size:13px;font-family:var(--mono);z-index:200;transition:transform .3s ease;white-space:nowrap;}
-.toast.show{transform:translateX(-50%) translateY(0);}
-.toast.success{border-color:var(--green);color:var(--green);}
-.toast.error{border-color:var(--red);color:var(--red);}
+
+/* MODALS */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
 .modal-overlay.open{display:flex;}
-.modal{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;width:90%;max-width:340px;}
-.modal h3{font-size:15px;font-weight:700;letter-spacing:1px;margin-bottom:16px;color:var(--accent2);text-transform:uppercase;font-family:var(--mono);}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;width:90%;max-width:600px;max-height:90vh;overflow-y:auto;}
+.modal h3{font-size:15px;font-weight:700;letter-spacing:1px;margin-bottom:4px;text-transform:uppercase;font-family:var(--mono);}
+.modal-sub{font-size:12px;color:var(--muted);font-family:var(--mono);margin-bottom:18px;}
+
+/* SQUAD SELECTOR MODAL */
+.squad-teams{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.squad-team-col{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px;}
+.squad-team-title{font-size:12px;font-family:var(--mono);font-weight:700;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;}
+.squad-count{font-size:10px;padding:2px 7px;border-radius:4px;border:1px solid var(--border);}
+.squad-count.ok{border-color:var(--green);color:var(--green);}
+.squad-count.warn{border-color:var(--yellow);color:var(--yellow);}
+.player-check-list{display:flex;flex-direction:column;gap:4px;max-height:320px;overflow-y:auto;}
+.player-check-item{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:6px;cursor:pointer;transition:background .15s;}
+.player-check-item:hover{background:rgba(0,212,255,.05);}
+.player-check-item input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:pointer;}
+.player-check-item.selected{background:rgba(0,212,255,.07);}
+.check-name{font-size:13px;font-weight:600;flex:1;}
+.check-role{font-size:10px;font-family:var(--mono);padding:1px 5px;border-radius:3px;}
+.is-wk-label{font-size:10px;font-family:var(--mono);color:var(--yellow);}
+.is-cap-label{font-size:10px;font-family:var(--mono);color:var(--accent);}
+.modal-actions{display:flex;gap:10px;margin-top:18px;}
+.modal-btn{flex:1;padding:10px;border-radius:7px;font-family:var(--font);font-size:15px;font-weight:700;border:1px solid;cursor:pointer;transition:all .15s;letter-spacing:1px;text-align:center;}
+.btn-save{background:rgba(0,212,255,.1);border-color:var(--accent);color:var(--accent);}
+.btn-save:hover{background:rgba(0,212,255,.2);}
+.btn-cancel{background:transparent;border-color:var(--border);color:var(--muted);}
+.btn-cancel:hover{border-color:var(--text);color:var(--text);}
+
+/* STATUS MODAL */
 .status-options{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
 .status-option{padding:10px 14px;border-radius:8px;border:1px solid var(--border);cursor:pointer;font-family:var(--font);font-size:15px;font-weight:600;transition:all .15s;color:var(--muted);}
 .status-option:hover{color:var(--text);border-color:var(--accent);}
@@ -119,6 +199,26 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .sel-abandoned{color:var(--yellow);border-color:var(--yellow);background:rgba(255,215,0,.08);}
 .modal-cancel{width:100%;padding:10px;border-radius:7px;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:var(--font);font-size:14px;font-weight:700;cursor:pointer;transition:all .15s;}
 .modal-cancel:hover{border-color:var(--text);color:var(--text);}
+
+/* TOAST */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 20px;font-size:13px;font-family:var(--mono);z-index:200;transition:transform .3s ease;white-space:nowrap;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+.toast.success{border-color:var(--green);color:var(--green);}
+.toast.error{border-color:var(--red);color:var(--red);}
+.toast.info{border-color:var(--accent);color:var(--accent);}
+
+/* TOSS CHOICE BUTTONS */
+.toss-choice-btn{background:var(--surface2);border:2px solid var(--border);border-radius:10px;padding:14px;text-align:center;cursor:pointer;transition:all .15s;color:var(--muted);font-family:var(--font);}
+.toss-choice-btn:hover{border-color:var(--yellow);color:var(--yellow);background:rgba(255,215,0,.06);}
+.toss-choice-btn.selected{border-color:var(--yellow);color:var(--yellow);background:rgba(255,215,0,.12);}
+
+/* SELECTED TEAM DETAIL */
+.team-detail{background:var(--surface);border:1px solid var(--accent);border-radius:12px;padding:20px;margin-bottom:20px;}
+.team-detail-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.team-detail-name{font-size:20px;font-weight:700;display:flex;align-items:center;gap:10px;}
+.close-detail{cursor:pointer;color:var(--muted);font-size:20px;transition:.15s;}
+.close-detail:hover{color:var(--red);}
+.section-divider{height:1px;background:var(--border);margin:14px 0;}
 </style>
 </head>
 <body>
@@ -127,9 +227,10 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
     <div class="logo-icon">🏏</div>
     <div><div class="logo-text">CREX</div><div class="logo-sub">ADMIN PANEL</div></div>
   </div>
-  <div class="nav-item active">🏟 Matches <span class="nav-badge green" id="liveCount">0</span></div>
-  <div class="nav-item" style="margin-top:auto" onclick="loadMatches()">🔄 Refresh</div>
-  <div class="sidebar-footer">v3.0 · Auto Playing 11</div>
+  <div class="nav-item active" id="navMatches" onclick="showPage('matches')">🏟 Matches <span class="nav-badge green" id="liveCount">0</span></div>
+  <div class="nav-item" id="navTeams" onclick="showPage('teams')">👥 Teams &amp; Players</div>
+  <div class="nav-item" style="margin-top:8px" onclick="loadAll()">🔄 Refresh</div>
+  <div class="sidebar-footer">v4.0 · DB-backed Squads</div>
 </div>
 
 <div class="main">
@@ -138,361 +239,766 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
     <div class="live-indicator">REALTIME SYNC</div>
   </div>
 
-  <div class="stats-row">
-    <div class="stat-card"><div class="stat-label">Live Matches</div><div class="stat-value" id="statLive">0</div></div>
-    <div class="stat-card"><div class="stat-label">Total Matches</div><div class="stat-value" id="statTotal">0</div></div>
-    <div class="stat-card"><div class="stat-label">Completed</div><div class="stat-value" id="statDone">0</div></div>
+  <!-- ══ MATCHES PAGE ══ -->
+  <div class="page active" id="pageMatches">
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-label">Live Matches</div><div class="stat-value" id="statLive">0</div></div>
+      <div class="stat-card"><div class="stat-label">Total Matches</div><div class="stat-value" id="statTotal">0</div></div>
+      <div class="stat-card"><div class="stat-label">Completed</div><div class="stat-value" id="statDone">0</div></div>
+    </div>
+
+    <div class="create-box">
+      <h3>Create New Match</h3>
+      <div class="form-grid">
+        <div class="form-group">
+          <div class="form-label">🏏 Team A</div>
+          <select class="form-select" id="team1" onchange="onTeamChange()">
+            <option value="">Loading teams...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <div class="form-label">🎯 Team B</div>
+          <select class="form-select" id="team2" onchange="onTeamChange()">
+            <option value="">Loading teams...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <div class="form-label">Total Overs</div>
+          <input class="form-input" id="overs_limit" type="number" placeholder="20"/>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:16px">
+        <div class="form-label">Venue (optional)</div>
+        <input class="form-input" id="venue" placeholder="e.g. Wankhede Stadium, Mumbai"/>
+      </div>
+      <div style="font-size:12px;font-family:var(--mono);color:var(--muted);margin-bottom:14px;">
+        ℹ️ Match create చేసి <span style="color:var(--yellow)">🪙 Toss</span> set చేయండి — toss బట్టి batting team automatically update అవుతుంది. తర్వాత <span style="color:var(--yellow)">🏏 Squad</span> select చేయండి.
+      </div>
+      <div class="create-btn" onclick="createMatch()">+ Create Match</div>
+    </div>
+
+    <div class="list-header">
+      <h3>All Matches</h3>
+      <div class="filter-tabs">
+        <div class="filter-tab active" onclick="filterMatches('ALL',this)">All</div>
+        <div class="filter-tab" onclick="filterMatches('live',this)">Live</div>
+        <div class="filter-tab" onclick="filterMatches('completed',this)">Done</div>
+      </div>
+    </div>
+    <div id="matchList"></div>
   </div>
 
-  <div class="create-box">
-    <h3>Create New Match</h3>
-    <div class="form-grid">
-      <div class="form-group">
-        <div class="form-label">🏏 Batting Team</div>
-        <select class="form-select" id="team1" onchange="onTeamChange()">
-          <option value="">Select team...</option>
-          <option value="India">🇮🇳 India</option>
-          <option value="South Africa">🇿🇦 South Africa</option>
-          <option value="Australia">🇦🇺 Australia</option>
-          <option value="England">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</option>
-          <option value="New Zealand">🇳🇿 New Zealand</option>
-          <option value="West Indies">🏝️ West Indies</option>
-          <option value="Sri Lanka">🇱🇰 Sri Lanka</option>
-          <option value="Afghanistan">🇦🇫 Afghanistan</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <div class="form-label">🎯 Bowling Team</div>
-        <select class="form-select" id="team2" onchange="onTeamChange()">
-          <option value="">Select team...</option>
-          <option value="India">🇮🇳 India</option>
-          <option value="South Africa">🇿🇦 South Africa</option>
-          <option value="Australia">🇦🇺 Australia</option>
-          <option value="England">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</option>
-          <option value="New Zealand">🇳🇿 New Zealand</option>
-          <option value="West Indies">🏝️ West Indies</option>
-          <option value="Sri Lanka">🇱🇰 Sri Lanka</option>
-          <option value="Afghanistan">🇦🇫 Afghanistan</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <div class="form-label">Total Overs</div>
-        <input class="form-input" id="overs_limit" type="number" placeholder="20"/>
+  <!-- ══ TEAMS PAGE ══ -->
+  <div class="page" id="pageTeams">
+    <!-- Add Team Form -->
+    <div class="add-form">
+      <h3>Add New Team</h3>
+      <div class="inline-row">
+        <div class="form-group">
+          <div class="form-label">Team Name</div>
+          <input class="form-input" id="newTeamName" placeholder="e.g. India"/>
+        </div>
+        <div class="form-group" style="max-width:100px">
+          <div class="form-label">Flag Emoji</div>
+          <input class="form-input" id="newTeamFlag" placeholder="🇮🇳"/>
+        </div>
+        <div class="form-group" style="max-width:100px">
+          <div class="form-label">Short Code</div>
+          <input class="form-input" id="newTeamCode" placeholder="IND"/>
+        </div>
+        <div style="display:flex;align-items:flex-end;">
+          <div class="create-btn yellow" onclick="addTeam()">+ Add Team</div>
+        </div>
       </div>
     </div>
-    <div class="toss-row">
-      <div class="form-group">
-        <div class="form-label">Toss Won By</div>
-        <select class="form-select" id="toss_winner">
-          <option value="">Select...</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <div class="form-label">Elected To</div>
-        <select class="form-select" id="toss_decision">
-          <option value="bat">Bat</option>
-          <option value="bowl">Bowl</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-group" style="margin-bottom:14px">
-      <div class="form-label">Venue (optional)</div>
-      <input class="form-input" id="venue" placeholder="e.g. Wankhede Stadium, Mumbai"/>
-    </div>
-    <!-- SQUAD PREVIEW -->
-    <div class="squad-preview">
-      <div class="squad-box">
-        <div class="squad-box-title batting">🏏 Batting XI — <span id="bat11label">Select team</span></div>
-        <div class="squad-tags" id="bat11tags"><span class="squad-empty">—</span></div>
-      </div>
-      <div class="squad-box">
-        <div class="squad-box-title bowling">🎯 Bowling XI — <span id="bowl11label">Select team</span></div>
-        <div class="squad-tags" id="bowl11tags"><span class="squad-empty">—</span></div>
-      </div>
-    </div>
-    <div class="create-btn" onclick="createMatch()">+ Create Match</div>
-  </div>
 
-  <div class="list-header">
-    <h3>All Matches</h3>
-    <div class="filter-tabs">
-      <div class="filter-tab active" onclick="filterMatches('ALL',this)">All</div>
-      <div class="filter-tab" onclick="filterMatches('live',this)">Live</div>
-      <div class="filter-tab" onclick="filterMatches('completed',this)">Done</div>
+    <!-- Team list -->
+    <div class="list-header"><h3>All Teams</h3></div>
+    <div class="team-grid" id="teamGrid"></div>
+
+    <!-- Selected Team Detail -->
+    <div id="teamDetailSection" style="display:none">
+      <div class="team-detail">
+        <div class="team-detail-head">
+          <div class="team-detail-name">
+            <span id="detailFlag"></span>
+            <span id="detailName"></span>
+          </div>
+          <span class="close-detail" onclick="closeTeamDetail()">✕</span>
+        </div>
+
+        <!-- Add Player -->
+        <div class="add-form" style="margin-bottom:0;border-radius:8px;">
+          <h3 style="font-size:12px;margin-bottom:12px;">Add Player</h3>
+          <div class="inline-row" style="flex-wrap:wrap;">
+            <div class="form-group" style="min-width:160px">
+              <div class="form-label">Player Name</div>
+              <input class="form-input" id="newPlayerName" placeholder="e.g. Virat Kohli"/>
+            </div>
+            <div class="form-group" style="max-width:120px">
+              <div class="form-label">Role</div>
+              <select class="form-select" id="newPlayerRole">
+                <option value="BAT">Batsman</option>
+                <option value="BOWL">Bowler</option>
+                <option value="AR">All-Rounder</option>
+                <option value="WK">Wicket-Keeper</option>
+              </select>
+            </div>
+            <div class="form-group" style="max-width:90px">
+              <div class="form-label">Is Captain?</div>
+              <select class="form-select" id="newPlayerCap">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+              </select>
+            </div>
+            <div class="form-group" style="max-width:90px">
+              <div class="form-label">Is WK?</div>
+              <select class="form-select" id="newPlayerWK">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+              </select>
+            </div>
+            <div style="display:flex;align-items:flex-end;">
+              <div class="create-btn blue" style="padding:9px 18px;font-size:14px" onclick="addPlayer()">+ Add</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- Player Table -->
+        <div class="player-mgmt">
+          <div class="player-mgmt-title">Squad (<span id="playerCount">0</span> players)</div>
+          <table class="player-table" id="playerTable">
+            <thead>
+              <tr>
+                <th>#</th><th>Name</th><th>Role</th><th>Captain</th><th>WK</th><th></th>
+              </tr>
+            </thead>
+            <tbody id="playerTableBody"></tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
-  <div id="matchList"></div>
 </div>
 
+<!-- STATUS MODAL -->
 <div class="modal-overlay" id="statusModal">
-  <div class="modal">
-    <h3>Change Status</h3>
+  <div class="modal" style="max-width:340px;">
+    <h3 style="color:var(--accent2)">Change Status</h3>
+    <div style="height:10px"></div>
     <div class="status-options">
       <div class="status-option sel-live" onclick="setStatus('live')">● Live</div>
       <div class="status-option sel-completed" onclick="setStatus('completed')">✓ Completed</div>
       <div class="status-option sel-abandoned" onclick="setStatus('abandoned')">✕ Abandoned</div>
     </div>
-    <div class="modal-cancel" onclick="closeStatusModal()">Cancel</div>
+    <div class="modal-cancel" onclick="closeModal('statusModal')">Cancel</div>
+  </div>
+</div>
+
+<!-- SQUAD SELECTOR MODAL -->
+<div class="modal-overlay" id="squadModal">
+  <div class="modal">
+    <h3 style="color:var(--yellow)">🏏 Select Playing 11</h3>
+    <div class="modal-sub" id="squadModalSub">Select 11 players for each team</div>
+    <div class="squad-teams">
+      <!-- batting team col -->
+      <div class="squad-team-col">
+        <div class="squad-team-title" style="color:var(--green)">
+          <span id="batTeamTitle">Batting Team</span>
+          <span class="squad-count warn" id="batCount">0/11</span>
+        </div>
+        <div class="player-check-list" id="batCheckList"></div>
+      </div>
+      <!-- bowling team col -->
+      <div class="squad-team-col">
+        <div class="squad-team-title" style="color:var(--accent2)">
+          <span id="bowlTeamTitle">Bowling Team</span>
+          <span class="squad-count warn" id="bowlCount">0/11</span>
+        </div>
+        <div class="player-check-list" id="bowlCheckList"></div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <div class="modal-btn btn-cancel" onclick="closeModal('squadModal')">Cancel</div>
+      <div class="modal-btn btn-save" onclick="saveSquad()">Save Playing 11</div>
+    </div>
+  </div>
+</div>
+
+<!-- TOSS MODAL -->
+<div class="modal-overlay" id="tossModal">
+  <div class="modal" style="max-width:380px;">
+    <div style="text-align:center;font-size:36px;margin-bottom:6px;">🪙</div>
+    <h3 style="color:var(--yellow);text-align:center;">Toss Details</h3>
+    <div class="modal-sub" id="tossModalSub" style="text-align:center;"></div>
+    <div class="modal-field" style="margin-bottom:14px;">
+      <label style="display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;font-family:var(--mono);margin-bottom:6px;">Toss Won By</label>
+      <select class="form-select" id="tossMWinner" style="width:100%;"></select>
+    </div>
+    <div class="modal-field" style="margin-bottom:18px;">
+      <label style="display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;font-family:var(--mono);margin-bottom:8px;">Elected To</label>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div id="tossBatBtn" class="toss-choice-btn" onclick="selectTossDecision('bat')">
+          <div style="font-size:22px;margin-bottom:4px;">🏏</div>
+          <div style="font-size:15px;font-weight:700;">BAT</div>
+        </div>
+        <div id="tossBowlBtn" class="toss-choice-btn" onclick="selectTossDecision('bowl')">
+          <div style="font-size:22px;margin-bottom:4px;">🎯</div>
+          <div style="font-size:15px;font-weight:700;">BOWL</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <div class="modal-btn btn-cancel" onclick="closeModal('tossModal')">Cancel</div>
+      <div class="modal-btn btn-save" style="background:rgba(255,215,0,.1);border-color:var(--yellow);color:var(--yellow);" onclick="saveToss()">Save Toss</div>
+    </div>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-const supabaseClient=supabase.createClient(
+const supabaseClient = supabase.createClient(
   "https://kgmvprtxxvkaavqziwpx.supabase.co",
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtnbXZwcnR4eHZrYWF2cXppd3B4Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MTM0MTIyMCwiZXhwIjoyMDg2OTE3MjIwfQ.3N3nLWx7ZnfvSCdQOAbCn9TWByxCTep5Ycm3HVUigfI"
 );
 
-// ── PLAYING 11 DATA ──────────────────────────────────────────────────────────
-const SQUADS={
-  "India":{
-    batsmen:["Abhishek Sharma","Sanju Samson","Ishan Kishan","Suryakumar Yadav","Tilak Varma","Hardik Pandya","Shivam Dube","Axar Patel"],
-    bowlers:["Varun Chakravarthy","Jasprit Bumrah","Arshdeep Singh"],
-    wk:"Sanju Samson",
-    captain:"Suryakumar Yadav"
-  },
-  "South Africa":{
-    batsmen:["A Markram","Q de Kock","D Miller","J Smith","C Bosch","D Brevis","R Rickelton","T Stubbs"],
-    bowlers:["M Jansen","K Rabada","L Ngidi"],
-    wk:"Q de Kock",
-    captain:"A Markram"
-  },
-  "Australia":{
-    batsmen:["M Marsh","J Inglis","T David","T Head","C Green","G Maxwell","M Stoinis","S Smith","M Renshaw"],
-    bowlers:["N Ellis","A Zampa"],
-    wk:"J Inglis",
-    captain:"M Marsh"
-  },
-  "England":{
-    batsmen:["H Brook","J Buttler","P Salt","B Duckett","J Bethell","S Curran","W Jacks","J Overton"],
-    bowlers:["A Rashid","R Ahmed","J Archer"],
-    wk:"J Buttler",
-    captain:"H Brook"
-  },
-  "New Zealand":{
-    batsmen:["Kane Williamson","Devon Conway","Finn Allen","Daryl Mitchell","Glenn Phillips","Mark Chapman","Michael Bracewell","Ish Sodhi"],
-    bowlers:["Trent Boult","Matt Henry","Lockie Ferguson"],
-    wk:"Devon Conway",
-    captain:"Kane Williamson"
-  },
-  "West Indies":{
-    batsmen:["R Powell","K Mayers","N Pooran","B King","J Charles","S Hope","R Chase","A Joseph"],
-    bowlers:["A Holder","O Thomas","A Khan"],
-    wk:"S Hope",
-    captain:"R Powell"
-  },
-  "Sri Lanka":{
-    batsmen:["Pathum Nissanka","Kusal Mendis","Kusal Perera","Charith Asalanka","Dasun Shanaka","Wanindu Hasaranga","Bhanuka Rajapaksa","Chamika Karunaratne"],
-    bowlers:["Dushmantha Chameera","Maheesh Theekshana","Pramod Madushan"],
-    wk:"Kusal Mendis",
-    captain:"Dasun Shanaka"
-  },
-  "Afghanistan":{
-    batsmen:["Ibrahim Zadran","Rahmanullah Gurbaz","Gulbadin Naib","Najibullah Zadran","Mohammad Nabi","Azmatullah Omarzai","Ikram Alikhil","Karim Janat"],
-    bowlers:["Rashid Khan","Mujeeb Ur Rahman","Fazalhaq Farooqi"],
-    wk:"Rahmanullah Gurbaz",
-    captain:"Rashid Khan"
-  }
-};
+// ── STATE ────────────────────────────────────────────────────────────────────
+let allMatches = [], allTeams = [], allPlayers = [];
+let currentFilter = 'ALL', statusTargetId = null;
+let selectedTeamId = null;
+let squadMatchId = null; // match being assigned squad
 
-function getAllPlayers(team){
-  if(!team||!SQUADS[team])return[];
-  const s=SQUADS[team];
-  return[...s.batsmen,...s.bowlers];
+// ── PAGE NAV ─────────────────────────────────────────────────────────────────
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page' + page.charAt(0).toUpperCase() + page.slice(1)).classList.add('active');
+  document.getElementById('nav' + page.charAt(0).toUpperCase() + page.slice(1)).classList.add('active');
 }
 
-let allMatches=[],currentFilter='ALL',statusTargetId=null;
-
-// ── TEAM CHANGE ──────────────────────────────────────────────────────────────
-function onTeamChange(){
-  const t1=document.getElementById('team1').value;
-  const t2=document.getElementById('team2').value;
-  // sync toss dropdown
-  const sel=document.getElementById('toss_winner');
-  const cur=sel.value;
-  sel.innerHTML='<option value="">Select...</option>'+
-    [t1,t2].filter(Boolean).map(n=>`<option value="${n}" ${n===cur?'selected':''}>${n}</option>`).join('');
-  // squad preview
-  renderSquadPreview(t1,'bat11label','bat11tags','batting');
-  renderSquadPreview(t2,'bowl11label','bowl11tags','bowling');
+// ── LOAD ALL DATA ─────────────────────────────────────────────────────────────
+async function loadAll() {
+  await Promise.all([loadTeams(), loadMatches()]);
 }
 
-function renderSquadPreview(team,labelId,tagsId,role){
-  document.getElementById(labelId).textContent=team||'Select team';
-  const el=document.getElementById(tagsId);
-  if(!team||!SQUADS[team]){el.innerHTML='<span class="squad-empty">—</span>';return;}
-  const s=SQUADS[team];
-  const all=getAllPlayers(team);
-  el.innerHTML=all.map(p=>{
-    let cls='squad-tag';
-    if(p===s.wk)cls+=' wk';
-    if(p===s.captain)cls+=' c';
-    return`<span class="${cls}">${p}${p===s.wk?' †':''}${p===s.captain?' ©':''}</span>`;
-  }).join('');
+async function loadTeams() {
+  const { data: teams } = await supabaseClient.from('teams').select('*').order('name');
+  const { data: players } = await supabaseClient.from('players').select('*').order('name');
+  if (teams) allTeams = teams;
+  if (players) allPlayers = players;
+  renderTeamSelects();
+  renderTeamGrid();
 }
 
-// ── CREATE MATCH ─────────────────────────────────────────────────────────────
-async function createMatch(){
-  const team1=document.getElementById('team1').value;
-  const team2=document.getElementById('team2').value;
-  const overs_limit=document.getElementById('overs_limit').value.trim();
-  const toss_winner=document.getElementById('toss_winner').value.trim();
-  const toss_decision=document.getElementById('toss_decision').value;
-  const venue=document.getElementById('venue').value.trim();
+async function loadMatches() {
+  const { data } = await supabaseClient.from('matches').select('*').order('id', { ascending: false });
+  if (data) { allMatches = data; renderMatches(); }
+}
 
-  if(!team1||!team2){showToast('Select both teams','error');return;}
-  if(team1===team2){showToast('Same team select cheyakku!','error');return;}
-  if(!overs_limit){showToast('Overs enter cheyyi','error');return;}
+// ── TEAM SELECT DROPDOWNS ─────────────────────────────────────────────────────
+function renderTeamSelects() {
+  const opts = '<option value="">Select team...</option>' +
+    allTeams.map(t => `<option value="${t.id}">${t.flag || ''} ${t.name}</option>`).join('');
+  document.getElementById('team1').innerHTML = opts;
+  document.getElementById('team2').innerHTML = opts;
+}
 
-  // batting team = team1 (top dropdown), bowling = team2
-  const batting=team1,bowling=team2;
+function onTeamChange() {
+  const t1id = document.getElementById('team1').value;
+  const t2id = document.getElementById('team2').value;
+  const t1 = allTeams.find(t => String(t.id) === String(t1id));
+  const t2 = allTeams.find(t => String(t.id) === String(t2id));
+  const sel = document.getElementById('toss_winner');
+  const cur = sel.value;
+  sel.innerHTML = '<option value="">Select...</option>' +
+    [t1, t2].filter(Boolean).map(t =>
+      `<option value="${t.id}" ${String(t.id) === cur ? 'selected' : ''}>${t.flag || ''} ${t.name}</option>`
+    ).join('');
+}
 
-  // 1. Create match
-  const{data:match,error}=await supabaseClient.from('matches').insert({
-    team_batting:batting,team_bowling:bowling,
-    overs_limit:parseInt(overs_limit),
-    toss_winner:toss_winner||null,
-    toss_decision:toss_decision||null,
-    venue:venue||null,
-    runs:0,wickets:0,overs:'0.0',
-    runs2:0,wickets2:0,overs2:'0.0',
-    innings:1,status:'live'
+// ── CREATE MATCH ──────────────────────────────────────────────────────────────
+async function createMatch() {
+  const team1id = document.getElementById('team1').value;
+  const team2id = document.getElementById('team2').value;
+  const overs_limit = document.getElementById('overs_limit').value.trim();
+  const venue = document.getElementById('venue').value.trim();
+
+  if (!team1id || !team2id) { showToast('Select both teams', 'error'); return; }
+  if (team1id === team2id) { showToast('Same team select cheyakku!', 'error'); return; }
+  if (!overs_limit) { showToast('Overs enter cheyyi', 'error'); return; }
+
+  const t1 = allTeams.find(t => String(t.id) === String(team1id));
+  const t2 = allTeams.find(t => String(t.id) === String(team2id));
+
+  const { data: match, error } = await supabaseClient.from('matches').insert({
+    team_batting: t1.name,
+    team_bowling: t2.name,
+    team_batting_id: t1.id,
+    team_bowling_id: t2.id,
+    overs_limit: parseInt(overs_limit),
+    toss_winner: null,
+    toss_decision: null,
+    venue: venue || null,
+    runs: 0, wickets: 0, overs: '0.0',
+    runs2: 0, wickets2: 0, overs2: '0.0',
+    innings: 1, status: 'live',
+    squad_set: false
   }).select().single();
 
-  if(error){showToast(error.message,'error');return;}
+  if (error) { showToast(error.message, 'error'); return; }
 
-  // 2. Insert batting team players (innings=1) into batsmen table
-  const batPlayers=getAllPlayers(batting);
-  if(batPlayers.length){
-    await supabaseClient.from('batsmen').insert(
-      batPlayers.map(name=>({match_id:match.id,name,runs:0,balls:0,fours:0,sixes:0,is_out:false,innings:1}))
-    );
-  }
-
-  // 3. Insert bowling team players (innings=1) into bowlers table
-  const bowlPlayers=getAllPlayers(bowling);
-  if(bowlPlayers.length){
-    await supabaseClient.from('bowlers').insert(
-      bowlPlayers.map(name=>({match_id:match.id,name,runs_given:0,wickets:0,balls:0,no_balls:0,wides:0,innings:1}))
-    );
-  }
-
-  // 4. Pre-insert 2nd innings: bowling team bats, batting team bowls
-  if(batPlayers.length){
-    await supabaseClient.from('bowlers').insert(
-      batPlayers.map(name=>({match_id:match.id,name,runs_given:0,wickets:0,balls:0,no_balls:0,wides:0,innings:2}))
-    );
-  }
-  if(bowlPlayers.length){
-    await supabaseClient.from('batsmen').insert(
-      bowlPlayers.map(name=>({match_id:match.id,name,runs:0,balls:0,fours:0,sixes:0,is_out:false,innings:2}))
-    );
-  }
-
-  // clear form
-  ['overs_limit','venue'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('team1').value='';
-  document.getElementById('team2').value='';
-  document.getElementById('toss_winner').innerHTML='<option value="">Select...</option>';
-  onTeamChange();
+  // Clear form
+  ['overs_limit', 'venue'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('team1').value = '';
+  document.getElementById('team2').value = '';
 
   allMatches.unshift(match);
   renderMatches();
-  showToast('Match created! Playing 11 loaded ✓','success');
+  showToast('Match created! Now select Playing 11 via 🏏 Squad button', 'success');
+
+  // Auto-open squad selector
+  setTimeout(() => openSquadModal(match.id), 400);
 }
 
-// ── RENDER ───────────────────────────────────────────────────────────────────
-function renderMatches(){
-  const live=allMatches.filter(m=>m.status==='live').length;
-  const done=allMatches.filter(m=>m.status==='completed').length;
-  document.getElementById('statLive').textContent=live;
-  document.getElementById('statTotal').textContent=allMatches.length;
-  document.getElementById('statDone').textContent=done;
-  document.getElementById('liveCount').textContent=live;
-  const filtered=currentFilter==='ALL'?allMatches:allMatches.filter(m=>m.status===currentFilter);
-  const el=document.getElementById('matchList');
-  if(!filtered.length){el.innerHTML=`<div class="empty"><div class="icon">🏏</div>No matches found.</div>`;return;}
-  el.innerHTML=filtered.map(m=>matchCard(m)).join('');
+// ── SQUAD SELECTOR ────────────────────────────────────────────────────────────
+function openSquadModal(matchId) {
+  const match = allMatches.find(m => m.id === matchId);
+  if (!match) return;
+  squadMatchId = matchId;
+
+  const batTeam = allTeams.find(t => String(t.id) === String(match.team_batting_id)) ||
+    allTeams.find(t => t.name === match.team_batting);
+  const bowlTeam = allTeams.find(t => String(t.id) === String(match.team_bowling_id)) ||
+    allTeams.find(t => t.name === match.team_bowling);
+
+  document.getElementById('batTeamTitle').textContent = (batTeam?.flag || '') + ' ' + (batTeam?.name || match.team_batting);
+  document.getElementById('bowlTeamTitle').textContent = (bowlTeam?.flag || '') + ' ' + (bowlTeam?.name || match.team_bowling);
+  document.getElementById('squadModalSub').textContent = `Select 11 players each for ${match.team_batting} vs ${match.team_bowling}`;
+
+  const batPlayers = allPlayers.filter(p => String(p.team_id) === String(batTeam?.id));
+  const bowlPlayers = allPlayers.filter(p => String(p.team_id) === String(bowlTeam?.id));
+
+  renderCheckList('batCheckList', batPlayers, 'bat');
+  renderCheckList('bowlCheckList', bowlPlayers, 'bowl');
+  updateSquadCounts();
+
+  document.getElementById('squadModal').classList.add('open');
 }
 
-function matchCard(m){
-  const statusClass=m.status==='live'?'live-card':'completed-card';
-  const badgeClass=m.status==='live'?'badge-live':m.status==='completed'?'badge-completed':'badge-abandoned';
-  const tossText=m.toss_winner?`Toss: <span>${m.toss_winner}</span> elected to <span>${m.toss_decision}</span>`:'No toss info';
-  const venueText=m.venue?` · ${m.venue}`:'';
-  const inn2=(m.runs2||0)>0||m.innings===2?`<div class="score-inn2">${m.team_bowling}: ${m.runs2||0}/${m.wickets2||0} (${m.overs2||'0.0'})</div>`:'';
-  return`<div class="match-card ${statusClass}">
+function renderCheckList(containerId, players, prefix) {
+  const el = document.getElementById(containerId);
+  if (!players.length) {
+    el.innerHTML = `<div style="font-size:12px;font-family:var(--mono);color:var(--muted);padding:10px">No players found. Add players in Teams tab first.</div>`;
+    return;
+  }
+  el.innerHTML = players.map(p => {
+    const roleClass = `check-role role-${p.role || 'BAT'}`;
+    const roleLabel = p.role || 'BAT';
+    return `<label class="player-check-item" id="${prefix}_item_${p.id}">
+      <input type="checkbox" id="${prefix}_chk_${p.id}" value="${p.id}" onchange="updateSquadCounts()">
+      <span class="check-name">${p.name}${p.is_captain ? ' <span class="is-cap-label">© C</span>' : ''}${p.is_wk ? ' <span class="is-wk-label">† WK</span>' : ''}</span>
+      <span class="${roleClass}">${roleLabel}</span>
+    </label>`;
+  }).join('');
+}
+
+function updateSquadCounts() {
+  const batChecked = document.querySelectorAll('#batCheckList input:checked').length;
+  const bowlChecked = document.querySelectorAll('#bowlCheckList input:checked').length;
+  const bc = document.getElementById('batCount');
+  const bwc = document.getElementById('bowlCount');
+  bc.textContent = `${batChecked}/11`;
+  bc.className = `squad-count ${batChecked === 11 ? 'ok' : 'warn'}`;
+  bwc.textContent = `${bowlChecked}/11`;
+  bwc.className = `squad-count ${bowlChecked === 11 ? 'ok' : 'warn'}`;
+}
+
+async function saveSquad() {
+  const match = allMatches.find(m => m.id === squadMatchId);
+  if (!match) return;
+
+  const batIds = [...document.querySelectorAll('#batCheckList input:checked')].map(c => c.value);
+  const bowlIds = [...document.querySelectorAll('#bowlCheckList input:checked')].map(c => c.value);
+
+  if (batIds.length !== 11 || bowlIds.length !== 11) {
+    showToast(`Select exactly 11 players per team (${batIds.length} / ${bowlIds.length})`, 'error');
+    return;
+  }
+
+  const batPlayers = allPlayers.filter(p => batIds.includes(String(p.id)));
+  const bowlPlayers = allPlayers.filter(p => bowlIds.includes(String(p.id)));
+
+  // Delete old entries for this match
+  await supabaseClient.from('batsmen').delete().eq('match_id', squadMatchId);
+  await supabaseClient.from('bowlers').delete().eq('match_id', squadMatchId);
+
+  // Inn 1: batting team bats, bowling team bowls
+  await supabaseClient.from('batsmen').insert(
+    batPlayers.map(p => ({ match_id: squadMatchId, name: p.name, runs: 0, balls: 0, fours: 0, sixes: 0, is_out: false, innings: 1 }))
+  );
+  await supabaseClient.from('bowlers').insert(
+    bowlPlayers.map(p => ({ match_id: squadMatchId, name: p.name, runs_given: 0, wickets: 0, balls: 0, no_balls: 0, wides: 0, innings: 1 }))
+  );
+
+  // Inn 2: roles reversed
+  await supabaseClient.from('batsmen').insert(
+    bowlPlayers.map(p => ({ match_id: squadMatchId, name: p.name, runs: 0, balls: 0, fours: 0, sixes: 0, is_out: false, innings: 2 }))
+  );
+  await supabaseClient.from('bowlers').insert(
+    batPlayers.map(p => ({ match_id: squadMatchId, name: p.name, runs_given: 0, wickets: 0, balls: 0, no_balls: 0, wides: 0, innings: 2 }))
+  );
+
+  // Mark match squad_set = true
+  await supabaseClient.from('matches').update({ squad_set: true }).eq('id', squadMatchId);
+  const m = allMatches.find(x => x.id === squadMatchId);
+  if (m) m.squad_set = true;
+
+  closeModal('squadModal');
+  renderMatches();
+  showToast('Playing 11 saved! ✓ Match ready to score', 'success');
+}
+
+// ── RENDER MATCHES ────────────────────────────────────────────────────────────
+function renderMatches() {
+  const live = allMatches.filter(m => m.status === 'live').length;
+  const done = allMatches.filter(m => m.status === 'completed').length;
+  document.getElementById('statLive').textContent = live;
+  document.getElementById('statTotal').textContent = allMatches.length;
+  document.getElementById('statDone').textContent = done;
+  document.getElementById('liveCount').textContent = live;
+  const filtered = currentFilter === 'ALL' ? allMatches : allMatches.filter(m => m.status === currentFilter);
+  const el = document.getElementById('matchList');
+  if (!filtered.length) { el.innerHTML = `<div class="empty"><div class="icon">🏏</div>No matches found.</div>`; return; }
+  el.innerHTML = filtered.map(m => matchCard(m)).join('');
+}
+
+function matchCard(m) {
+  const statusClass = m.status === 'live' ? 'live-card' : 'completed-card';
+  const badgeClass = m.status === 'live' ? 'badge-live' : m.status === 'completed' ? 'badge-completed' : 'badge-abandoned';
+  const tossText = m.toss_winner ? `Toss: <span>${m.toss_winner}</span> elected to <span>${m.toss_decision}</span>` : 'No toss info';
+  const venueText = m.venue ? ` · ${m.venue}` : '';
+  const inn2 = (m.runs2 || 0) > 0 || m.innings === 2
+    ? `<div class="score-inn2">${m.team_bowling}: ${m.runs2 || 0}/${m.wickets2 || 0} (${m.overs2 || '0.0'})</div>` : '';
+  const tossPill = m.toss_winner
+    ? `<span class="squad-pill done">🪙 Toss Done</span>`
+    : `<span class="squad-pill pending">🪙 Toss Pending</span>`;
+  const squadStatus = m.squad_set
+    ? `<span class="squad-pill done">✓ Squad Set</span>`
+    : `<span class="squad-pill pending">⚠ Squad Pending</span>`;
+  const resultBanner = m.status === 'completed' && m.result
+    ? `<div style="margin-top:6px;padding:6px 10px;background:rgba(0,255,136,.07);border:1px solid rgba(0,255,136,.2);border-radius:6px;font-size:12px;font-family:var(--mono);color:var(--green);font-weight:700;">${m.result}</div>`
+    : '';
+  return `<div class="match-card ${statusClass}">
     <div class="card-top">
       <div>
         <div class="card-teams">${m.team_batting} vs ${m.team_bowling}</div>
         <div class="card-meta">
           <span class="status-badge ${badgeClass}">${m.status}</span>
-          <span class="overs-info">${m.overs_limit?m.overs_limit+' Overs':''}${venueText}</span>
+          <span class="overs-info">${m.overs_limit ? m.overs_limit + ' Overs' : ''}${venueText}</span>
         </div>
+        <div class="squad-indicator">${tossPill}${squadStatus}</div>
+        ${resultBanner}
       </div>
       <div class="card-score">
-        <div class="score-big">${m.team_batting}: ${m.runs??0}/${m.wickets??0}</div>
-        <div class="score-overs">${m.overs??'0.0'} Overs · Inn ${m.innings||1}</div>
+        <div class="score-big">${m.team_batting}: ${m.runs ?? 0}/${m.wickets ?? 0}</div>
+        <div class="score-overs">${m.overs ?? '0.0'} Overs · Inn ${m.innings || 1}</div>
         ${inn2}
       </div>
     </div>
     <div class="card-bottom">
       <div class="toss-info">${tossText}</div>
       <div class="card-actions">
+        ${m.status !== 'completed' ? `
+        <div class="action-btn btn-toss" onclick="openTossModal(${m.id})">🪙 Toss</div>
+        <div class="action-btn btn-squad" onclick="openSquadModal(${m.id})">🏏 Squad</div>
         <div class="action-btn btn-score" onclick="openMatch(${m.id})">▶ Score</div>
         <div class="action-btn btn-status" onclick="openStatusModal(${m.id})">Status</div>
+        ` : `
+        <div class="action-btn" style="background:rgba(0,255,136,.06);border-color:rgba(0,255,136,.2);color:var(--green);" onclick="openMatch(${m.id})">📊 Scorecard</div>
+        `}
         <div class="action-btn btn-delete" onclick="deleteMatch(${m.id})">✕</div>
       </div>
     </div>
   </div>`;
 }
 
-function filterMatches(status,el){
-  currentFilter=status;
-  document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active'));
+function filterMatches(status, el) {
+  currentFilter = status;
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
   renderMatches();
 }
 
-async function loadMatches(){
-  const{data}=await supabaseClient.from('matches').select('*').order('id',{ascending:false});
-  if(data){allMatches=data;renderMatches();}
+// ── TEAMS PAGE ────────────────────────────────────────────────────────────────
+function renderTeamGrid() {
+  const el = document.getElementById('teamGrid');
+  if (!allTeams.length) { el.innerHTML = `<div class="empty"><div class="icon">👥</div>No teams yet. Add one above.</div>`; return; }
+  el.innerHTML = allTeams.map(t => {
+    const teamPlayers = allPlayers.filter(p => String(p.team_id) === String(t.id));
+    const cap = teamPlayers.find(p => p.is_captain);
+    const wk = teamPlayers.find(p => p.is_wk);
+    const preview = teamPlayers.slice(0, 6);
+    return `<div class="team-card ${selectedTeamId === t.id ? 'selected-team' : ''}" onclick="selectTeam(${t.id})">
+      <div class="team-card-head">
+        <span class="team-flag">${t.flag || '🏏'}</span>
+        <div>
+          <div class="team-name">${t.name}</div>
+          <div class="team-code">${t.code || ''}</div>
+        </div>
+        <div style="margin-left:auto"><div class="team-player-count">${teamPlayers.length} players</div></div>
+      </div>
+      <div class="player-list-mini">
+        ${preview.map(p => `<span class="player-chip ${p.is_wk ? 'wk' : ''} ${p.is_captain ? 'cap' : ''}">${p.name}${p.is_wk ? ' †' : ''}${p.is_captain ? ' ©' : ''}</span>`).join('')}
+        ${teamPlayers.length > 6 ? `<span class="player-chip" style="color:var(--muted)">+${teamPlayers.length - 6} more</span>` : ''}
+      </div>
+    </div>`;
+  }).join('');
 }
 
-function openStatusModal(id){statusTargetId=id;document.getElementById('statusModal').classList.add('open');}
-function closeStatusModal(){document.getElementById('statusModal').classList.remove('open');statusTargetId=null;}
-async function setStatus(status){
-  if(!statusTargetId)return;
-  await supabaseClient.from('matches').update({status}).eq('id',statusTargetId);
-  const m=allMatches.find(x=>x.id===statusTargetId);
-  if(m)m.status=status;
-  renderMatches();closeStatusModal();
-  showToast('Status updated','success');
+function selectTeam(id) {
+  selectedTeamId = id;
+  const team = allTeams.find(t => t.id === id);
+  if (!team) return;
+  document.getElementById('teamDetailSection').style.display = '';
+  document.getElementById('detailFlag').textContent = team.flag || '🏏';
+  document.getElementById('detailName').textContent = team.name;
+  renderPlayerTable(id);
+  renderTeamGrid();
+  document.getElementById('teamDetailSection').scrollIntoView({ behavior: 'smooth' });
 }
 
-async function deleteMatch(id){
-  if(!confirm('Delete this match and all its data?'))return;
-  await supabaseClient.from('matches').delete().eq('id',id);
-  allMatches=allMatches.filter(m=>m.id!==id);
-  renderMatches();showToast('Match deleted','error');
+function closeTeamDetail() {
+  selectedTeamId = null;
+  document.getElementById('teamDetailSection').style.display = 'none';
+  renderTeamGrid();
 }
 
-function openMatch(id){window.location='/admin/match/'+id;}
+function renderPlayerTable(teamId) {
+  const players = allPlayers.filter(p => String(p.team_id) === String(teamId));
+  document.getElementById('playerCount').textContent = players.length;
+  const tbody = document.getElementById('playerTableBody');
+  if (!players.length) {
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--muted);font-family:var(--mono);font-size:12px;padding:20px">No players yet. Add above.</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = players.map((p, i) => `
+    <tr>
+      <td style="color:var(--muted);font-family:var(--mono);font-size:11px">${i + 1}</td>
+      <td style="font-weight:700">${p.name}</td>
+      <td><span class="role-badge role-${p.role || 'BAT'}">${p.role || 'BAT'}</span></td>
+      <td style="font-family:var(--mono);font-size:12px;color:${p.is_captain ? 'var(--accent)' : 'var(--muted)'}">${p.is_captain ? '© Yes' : '—'}</td>
+      <td style="font-family:var(--mono);font-size:12px;color:${p.is_wk ? 'var(--yellow)' : 'var(--muted)'}">${p.is_wk ? '† Yes' : '—'}</td>
+      <td><button class="del-btn" onclick="deletePlayer(${p.id})">✕ Remove</button></td>
+    </tr>
+  `).join('');
+}
 
-supabaseClient.channel('admin-dashboard')
-  .on('postgres_changes',{event:'*',schema:'public',table:'matches'},()=>loadMatches())
-  .subscribe();
+async function addTeam() {
+  const name = document.getElementById('newTeamName').value.trim();
+  const flag = document.getElementById('newTeamFlag').value.trim();
+  const code = document.getElementById('newTeamCode').value.trim().toUpperCase();
+  if (!name) { showToast('Team name required', 'error'); return; }
+  const { data, error } = await supabaseClient.from('teams').insert({ name, flag: flag || '🏏', code: code || name.slice(0, 3).toUpperCase() }).select().single();
+  if (error) { showToast(error.message, 'error'); return; }
+  allTeams.push(data);
+  ['newTeamName', 'newTeamFlag', 'newTeamCode'].forEach(id => document.getElementById(id).value = '');
+  renderTeamGrid();
+  renderTeamSelects();
+  showToast(name + ' team added', 'success');
+}
+
+async function addPlayer() {
+  if (!selectedTeamId) { showToast('Select a team first', 'error'); return; }
+  const name = document.getElementById('newPlayerName').value.trim();
+  const role = document.getElementById('newPlayerRole').value;
+  const is_captain = document.getElementById('newPlayerCap').value === '1';
+  const is_wk = document.getElementById('newPlayerWK').value === '1';
+  if (!name) { showToast('Player name required', 'error'); return; }
+  // If captain, un-captain existing
+  if (is_captain) {
+    const oldCap = allPlayers.find(p => String(p.team_id) === String(selectedTeamId) && p.is_captain);
+    if (oldCap) {
+      await supabaseClient.from('players').update({ is_captain: false }).eq('id', oldCap.id);
+      oldCap.is_captain = false;
+    }
+  }
+  const { data, error } = await supabaseClient.from('players').insert({
+    team_id: selectedTeamId, name, role, is_captain, is_wk
+  }).select().single();
+  if (error) { showToast(error.message, 'error'); return; }
+  allPlayers.push(data);
+  document.getElementById('newPlayerName').value = '';
+  renderPlayerTable(selectedTeamId);
+  renderTeamGrid();
+  showToast(name + ' added', 'success');
+}
+
+async function deletePlayer(id) {
+  if (!confirm('Remove this player?')) return;
+  await supabaseClient.from('players').delete().eq('id', id);
+  allPlayers = allPlayers.filter(p => p.id !== id);
+  renderPlayerTable(selectedTeamId);
+  renderTeamGrid();
+  showToast('Player removed', 'info');
+}
+
+// ── TOSS MODAL ────────────────────────────────────────────────────────────────
+let tossMatchId = null;
+let tossDecisionSelected = null;
+
+function openTossModal(matchId) {
+  const match = allMatches.find(m => m.id === matchId);
+  if (!match) return;
+  tossMatchId = matchId;
+  tossDecisionSelected = match.toss_decision || null;
+
+  document.getElementById('tossModalSub').textContent = `${match.team_batting} vs ${match.team_bowling}`;
+
+  // Populate winner dropdown with both teams
+  const batTeam = allTeams.find(t => String(t.id) === String(match.team_batting_id)) || { name: match.team_batting, flag: '' };
+  const bowlTeam = allTeams.find(t => String(t.id) === String(match.team_bowling_id)) || { name: match.team_bowling, flag: '' };
+
+  document.getElementById('tossMWinner').innerHTML =
+    `<option value="">Select team...</option>` +
+    [batTeam, bowlTeam].map(t =>
+      `<option value="${t.name}" ${match.toss_winner === t.name ? 'selected' : ''}>${t.flag || ''} ${t.name}</option>`
+    ).join('');
+
+  // Pre-select decision if already set
+  selectTossDecision(match.toss_decision || null, true);
+
+  document.getElementById('tossModal').classList.add('open');
+}
+
+function selectTossDecision(decision, silent = false) {
+  tossDecisionSelected = decision;
+  document.getElementById('tossBatBtn').classList.toggle('selected', decision === 'bat');
+  document.getElementById('tossBowlBtn').classList.toggle('selected', decision === 'bowl');
+}
+
+async function saveToss() {
+  const winner = document.getElementById('tossMWinner').value;
+  if (!winner) {
+    showToast('Toss winner select cheyyi', 'error');
+    return;
+  }
+  if (!tossDecisionSelected) {
+    showToast('Bat / Bowl elect cheyyi', 'error');
+    return;
+  }
+  const match = allMatches.find(m => m.id === tossMatchId);
+  if (!match) return;
+
+  let battingTeam = match.team_batting;
+  let bowlingTeam = match.team_bowling;
+  let battingId   = match.team_batting_id;
+  let bowlingId   = match.team_bowling_id;
+
+  const team1 = { name: match.team_batting,  id: match.team_batting_id  };
+  const team2 = { name: match.team_bowling, id: match.team_bowling_id };
+
+  if (tossDecisionSelected === 'bat') {
+    if (winner === team1.name) {
+      battingTeam = team1.name; bowlingTeam = team2.name;
+      battingId   = team1.id;  bowlingId   = team2.id;
+    } else {
+      battingTeam = team2.name; bowlingTeam = team1.name;
+      battingId   = team2.id;  bowlingId   = team1.id;
+    }
+  }
+  if (tossDecisionSelected === 'bowl') {
+    if (winner === team1.name) {
+      battingTeam = team2.name; bowlingTeam = team1.name;
+      battingId   = team2.id;  bowlingId   = team1.id;
+    } else {
+      battingTeam = team1.name; bowlingTeam = team2.name;
+      battingId   = team1.id;  bowlingId   = team2.id;
+    }
+  }
+
+  // Did batting team change? If squad already set → swap innings in batsmen/bowlers tables
+  const teamsSwapped = match.squad_set && String(battingId) !== String(match.team_batting_id);
+  if (teamsSwapped) {
+    // Use innings=99 as temp to avoid unique constraint issues
+    await supabaseClient.from('batsmen').update({ innings: 99 }).eq('match_id', tossMatchId).eq('innings', 1);
+    await supabaseClient.from('batsmen').update({ innings: 1  }).eq('match_id', tossMatchId).eq('innings', 2);
+    await supabaseClient.from('batsmen').update({ innings: 2  }).eq('match_id', tossMatchId).eq('innings', 99);
+    await supabaseClient.from('bowlers').update({ innings: 99 }).eq('match_id', tossMatchId).eq('innings', 1);
+    await supabaseClient.from('bowlers').update({ innings: 1  }).eq('match_id', tossMatchId).eq('innings', 2);
+    await supabaseClient.from('bowlers').update({ innings: 2  }).eq('match_id', tossMatchId).eq('innings', 99);
+  }
+
+  const { error } = await supabaseClient
+    .from('matches')
+    .update({
+      toss_winner:     winner,
+      toss_decision:   tossDecisionSelected,
+      team_batting:    battingTeam,
+      team_bowling:    bowlingTeam,
+      team_batting_id: battingId,
+      team_bowling_id: bowlingId
+    })
+    .eq('id', tossMatchId);
+
+  if (error) { showToast(error.message, 'error'); return; }
+
+  const m = allMatches.find(x => x.id === tossMatchId);
+  if (m) {
+    m.toss_winner    = winner;
+    m.toss_decision  = tossDecisionSelected;
+    m.team_batting   = battingTeam;
+    m.team_bowling   = bowlingTeam;
+    m.team_batting_id = battingId;
+    m.team_bowling_id = bowlingId;
+  }
+
+  closeModal('tossModal');
+  renderMatches();
+  const swapMsg = teamsSwapped ? ' | Squad innings swapped ✓' : '';
+  showToast(`🪙 ${winner} won toss and chose to ${tossDecisionSelected}${swapMsg}`, 'success');
+}
+
+// ── STATUS & DELETE ───────────────────────────────────────────────────────────
+function openStatusModal(id) { statusTargetId = id; document.getElementById('statusModal').classList.add('open'); }
+async function setStatus(status) {
+  if (!statusTargetId) return;
+  await supabaseClient.from('matches').update({ status }).eq('id', statusTargetId);
+  const m = allMatches.find(x => x.id === statusTargetId);
+  if (m) m.status = status;
+  renderMatches(); closeModal('statusModal');
+  showToast('Status updated', 'success');
+}
+async function deleteMatch(id) {
+  if (!confirm('Delete this match and all its data?')) return;
+  await supabaseClient.from('matches').delete().eq('id', id);
+  allMatches = allMatches.filter(m => m.id !== id);
+  renderMatches(); showToast('Match deleted', 'error');
+}
+function openMatch(id) { window.location = '/admin/match/'+id+'?match_id='+id; }
+
+// ── UTILITIES ─────────────────────────────────────────────────────────────────
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+document.getElementById('statusModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal('statusModal'); });
+document.getElementById('squadModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal('squadModal'); });
+document.getElementById('tossModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal('tossModal'); });
 
 let toastTimer;
-function showToast(msg,type='success'){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.className=`toast ${type} show`;
-  clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2500);
+function showToast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = `toast ${type} show`;
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
 }
 
-document.getElementById('statusModal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeStatusModal();});
-loadMatches();
+// ── REALTIME ──────────────────────────────────────────────────────────────────
+supabaseClient.channel('admin-dash')
+  .on('postgres_changes', { event: '*', schema: 'public', table: 'matches' }, () => loadMatches())
+  .subscribe();
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+loadAll();
 </script>
 </body>
 </html>
