@@ -74,5 +74,12 @@ README.md
 
 ## 👨‍💻 Author
 
-Name: Your Name
+Names:
+## 👨‍👩‍👦 Team Members
+
+1. Name4 – Admin & Scoring Developer (Ball-by-ball Logic)
+2. Name2 – Backend Developer (Flask Routing)
+3. Name3 – Database & Realtime Developer (Supabase Integration)
+4. Name1 – Frontend Developer (Admin UI Design)
+
 Role: Backend & Scoring Developer
